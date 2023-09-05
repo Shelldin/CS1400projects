@@ -1,3 +1,4 @@
+# total crew number and units input
 pirates_string = "How many pirates:"
 pirates_int = 20
 
@@ -25,9 +26,11 @@ yondu_string = "Yondu's Share: "
 peter_string = "Peter's Share: "
 crew_string = "Crew's share: "
 
+# print the number of crew and units, as well as the final shares that will be received
 print(pirates_string, '\n', pirates_int)
 print(units_string, '\n', units_int)
 print('')
-print(yondu_string + str(yondu_total_share))
-print(peter_string + str(peter_total_share))
-print(crew_string + str(other_crew_total_share))
+print(yondu_string + "{:.2f}".format(yondu_total_share))
+print(peter_string + "{:.2f}".format(peter_total_share))
+print(crew_string + "{:.2f}".format(other_crew_total_share))
+
