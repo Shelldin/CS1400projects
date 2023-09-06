@@ -30,7 +30,7 @@ crew_string = "Crew's share: "
 print(pirates_string, '\n', pirates_int)
 print(units_string, '\n', units_int)
 print('')
-print(yondu_string + "{:.2f}".format(yondu_total_share))
-print(peter_string + "{:.2f}".format(peter_total_share))
-print(crew_string + "{:.2f}".format(other_crew_total_share))
+print(yondu_string + "{:,.2f}".format(yondu_total_share))
+print(peter_string + "{:,.2f}".format(peter_total_share))
+print(crew_string + "{:,.2f}".format(other_crew_total_share))
 
