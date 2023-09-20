@@ -33,3 +33,4 @@ time = int(input("What time is it?"))
 is_morning = time < 12
 
 print(is_morning and "Good Morning" or "Good Evening")
+
