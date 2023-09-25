@@ -2,7 +2,7 @@ from turtle import *
 
 # background dimension variables
 bg_x_length = 1400
-bg_y_length = 800
+bg_y_length = 850
 
 # door dimension variables
 door_x_length = 150
@@ -174,6 +174,7 @@ def draw_main_pantheon_walls():
         lt(90)
     end_fill()
 
+
 def draw_roof_rectangles():
     fillcolor("ivory1")
     go_bottom_center()
@@ -218,6 +219,7 @@ def draw_roof_rectangles():
         lt(90)
     end_fill()
 
+
 def draw_upper_roof():
     go_bottom_center()
     fillcolor("ivory3")
@@ -248,6 +250,7 @@ def draw_upper_roof():
         lt(90)
     end_fill()
 
+
 def draw_roof_triangles():
     fillcolor("ivory1")
     tri_start_pos = pos()
@@ -263,7 +266,7 @@ def draw_roof_triangles():
             goto(tri_start_pos)
             seth(0)
             fd(main_building_x_length + 30)
-            tri_side_count +=1
+            tri_side_count += 1
         elif tri_side_count == 2:
             goto(0, ycor() + 120)
             tri_side_count += 1
@@ -295,6 +298,21 @@ def draw_roof_triangles():
             break
     end_fill()
 
+
+def draw_dome():
+    fillcolor("ivory2")
+    up()
+    goto(0, ycor() + upper_roof_y_length + 30)
+    goto(xcor() - 220, ycor())
+    down()
+    seth(90)
+    begin_fill()
+    for i in range(181):
+        fd(4)
+        seth(89 - i)
+    end_fill()
+
+
 def draw_roof():
     draw_roof_rectangles()
     roof_left_edge = pos()
@@ -303,12 +321,16 @@ def draw_roof():
     goto(roof_left_edge)
     goto(xcor(), ycor() + 15)
     draw_roof_triangles()
+    up()
+    goto(roof_left_edge)
+    draw_dome()
+
 
 def main():
-    #draw_background_box()
-    #draw_main_pantheon_walls()
-    #draw_doorway()
-   # draw_all_pillars()
+    draw_background_box()
+    draw_main_pantheon_walls()
+    draw_doorway()
+    draw_all_pillars()
     draw_roof()
 
 
