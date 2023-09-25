@@ -1,5 +1,4 @@
 from turtle import *
-from random import random
 
 # background dimension variables
 bg_x_length = 1400
@@ -19,6 +18,10 @@ pillar_total_height = pillar_y_length + pillar_base_y_length * 2
 # base building variables
 main_building_x_length = door_x_length + 200 + (pillar_long_x_length * 8)
 main_building_y_length = pillar_total_height
+
+# upper roof dimension variables
+upper_roof_x_length = door_x_length + 150 + (pillar_long_x_length * 8)
+upper_roof_y_length = pillar_total_height / 3
 
 
 def go_top_left():
@@ -201,12 +204,112 @@ def draw_roof_rectangles():
         lt(90)
     end_fill()
 
+    fillcolor("ivory1")
+    up()
+    goto(xcor() - 15, ycor() + 30)
+    down()
+    seth(0)
+    begin_fill()
+    for i in range(4):
+        if i % 2 == 0:
+            fd(main_building_x_length + 30)
+        else:
+            fd(15)
+        lt(90)
+    end_fill()
+
+def draw_upper_roof():
+    go_bottom_center()
+    fillcolor("ivory3")
+    up()
+    goto(xcor() + (upper_roof_x_length / -2), ycor() + pillar_total_height + 60)
+    down()
+    seth(0)
+    begin_fill()
+    for i in range(4):
+        if i % 2 == 0:
+            fd(upper_roof_x_length)
+        else:
+            fd(upper_roof_y_length)
+        lt(90)
+    end_fill()
+
+    fillcolor("ivory2")
+    up()
+    goto((xcor() - 15, ycor() + upper_roof_y_length))
+    down()
+    seth(0)
+    begin_fill()
+    for i in range(4):
+        if i % 2 == 0:
+            fd(upper_roof_x_length + 30)
+        else:
+            fd(15)
+        lt(90)
+    end_fill()
+
+def draw_roof_triangles():
+    fillcolor("ivory1")
+    tri_start_pos = pos()
+    tri_side_count = 0
+    seth(0)
+    down()
+    begin_fill()
+    while tri_side_count < 3:
+        if tri_side_count == 0:
+            goto(0, ycor() + 120)
+            tri_side_count += 1
+        elif tri_side_count == 1:
+            goto(tri_start_pos)
+            seth(0)
+            fd(main_building_x_length + 30)
+            tri_side_count +=1
+        elif tri_side_count == 2:
+            goto(0, ycor() + 120)
+            tri_side_count += 1
+        else:
+            break
+    end_fill()
+
+    fillcolor("ivory2")
+    up()
+    goto(tri_start_pos)
+    goto(xcor() + 70, ycor())
+    second_tri_start_pos = pos()
+    tri_side_count = 0
+    down()
+    begin_fill()
+    while tri_side_count < 3:
+        if tri_side_count == 0:
+            goto(0, ycor() + 100)
+            tri_side_count += 1
+        elif tri_side_count == 1:
+            goto(second_tri_start_pos)
+            seth(0)
+            fd(main_building_x_length - 120)
+            tri_side_count += 1
+        elif tri_side_count == 2:
+            goto(0, ycor() + 100)
+            tri_side_count += 1
+        else:
+            break
+    end_fill()
+
+def draw_roof():
+    draw_roof_rectangles()
+    roof_left_edge = pos()
+    draw_upper_roof()
+    up()
+    goto(roof_left_edge)
+    goto(xcor(), ycor() + 15)
+    draw_roof_triangles()
+
 def main():
     #draw_background_box()
-    draw_main_pantheon_walls()
+    #draw_main_pantheon_walls()
     #draw_doorway()
-    #draw_all_pillars()
-    draw_roof_rectangles()
+   # draw_all_pillars()
+    draw_roof()
 
 
 main()
