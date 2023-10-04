@@ -11,3 +11,6 @@ while y < len(my_list):
     y+=1
 
 print(my_list[1:10])
+
+
+
