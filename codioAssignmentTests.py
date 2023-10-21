@@ -23,7 +23,7 @@ while rows < 8:
             print('X')
             counter = 1
             rows += 1
-            
+
 # version codio liked:
 for row in range(8):
   if row % 2 == 0:
