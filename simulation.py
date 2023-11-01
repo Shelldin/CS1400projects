@@ -7,7 +7,7 @@ def check_initial_population_input(init_pop):
 
 
 def check_growth_rate_input(growth_rate):
-    if growth_rate is str or growth_rate < 0 or growth_rate > 4:
+    if growth_rate < 0 or growth_rate > 4:
         raise ValueError("Please enter a number between 0 and 4")
 
 
@@ -38,6 +38,13 @@ def create_pop_list(init_pop, rate, iterations):
     return sim_results
 
 
+def write_results_file(file_name, results):
+    output_file = open(f"{file_name}", "w")
+
+    for n in range(len(results)):
+        output_file.write(f"{n + 1} {results[n]:.3f}" + '\n')
+
+
 def population_simulation():
     parser = argparse.ArgumentParser(
         description="Get initial population, growth rate, iterations, and output file from command line")
@@ -62,8 +69,7 @@ def population_simulation():
 
     results = create_pop_list(args.initial_population, args.growth_rate, args.iterations)
 
-    for n in range(len(results)):
-        print(f"{results[n]:.3f}")
+    write_results_file(args.output_file, results)
 
 
 def main():
