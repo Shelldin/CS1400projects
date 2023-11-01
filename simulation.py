@@ -16,15 +16,26 @@ def check_iterations_input(iterations):
         raise ValueError("Please enter a whole number that is greater than 0")
 
 
-def pop_equation(init_pop, rate, iterations):
-    result = round(init_pop, 3)
+def pop_equation(pop, rate):
+    result = round(rate * pop * (1 - pop), 3)
+    return result
 
-    for n in range(0, iterations):
-        if n < 1:
-            print(f"{n} {result:,.3f}")
+
+def create_pop_list(init_pop, rate, iterations):
+    pop = round(init_pop, 3)
+    sim_results = []
+
+    iteration = 0
+    while iteration < iterations:
+        if iteration < 1:
+            sim_results.append(pop)
+            iteration += 1
         else:
-            result = round(rate * result * (1 - result), 3)
-            print(f"{n} {result:,.3f}")
+            pop = pop_equation(pop, rate)
+            sim_results.append(pop)
+            iteration += 1
+
+    return sim_results
 
 
 def population_simulation():
@@ -49,7 +60,7 @@ def population_simulation():
     check_growth_rate_input(args.growth_rate)
     check_iterations_input(args.iterations)
 
-    pop_equation(args.initial_population, args.growth_rate, args.iterations)
+    print(create_pop_list(args.initial_population, args.growth_rate, args.iterations))
 
 
 def main():
