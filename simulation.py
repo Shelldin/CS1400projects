@@ -60,7 +60,10 @@ def population_simulation():
     check_growth_rate_input(args.growth_rate)
     check_iterations_input(args.iterations)
 
-    print(create_pop_list(args.initial_population, args.growth_rate, args.iterations))
+    results = create_pop_list(args.initial_population, args.growth_rate, args.iterations)
+
+    for n in range(len(results)):
+        print(f"{results[n]:.3f}")
 
 
 def main():
