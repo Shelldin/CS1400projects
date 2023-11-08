@@ -1,5 +1,8 @@
 from turtle import *
 
+# size factor
+factor_amount = 1
+
 # background dimension variables
 bg_x_length = 1400
 bg_y_length = 850
@@ -24,59 +27,59 @@ upper_roof_x_length = door_x_length + 150 + (pillar_long_x_length * 8)
 upper_roof_y_length = pillar_total_height / 3
 
 
-def go_top_left():
+def go_top_left(bg_x_length, bg_y_length, factor_amount):
     """position cursor in top left of picture"""
     up()
-    goto(bg_x_length / -2, bg_y_length / 2)
+    goto((bg_x_length * factor_amount) / -2, (bg_y_length * factor_amount) / 2)
     down()
 
 
-def go_bottom_left():
+def go_bottom_left(bg_x_length, bg_y_length, factor_amount):
     """position cursor in bottom left of picture"""
     up()
-    goto(bg_x_length / -2, bg_y_length / -2)
+    goto((bg_x_length * factor_amount) / -2, (bg_y_length * factor_amount) / -2)
     down()
 
 
-def go_bottom_center():
+def go_bottom_center(bg_y_length, factor_amount):
     """position cursor in bottom middle of picture"""
     up()
-    goto(0, bg_y_length / -2)
+    goto(0, (bg_y_length * factor_amount) / -2)
     down()
 
 
-def draw_background_box():
+def draw_background_box(bg_x_length, bg_y_length, factor_amount):
     """draw a background/sky box"""
-    go_top_left()
+    go_top_left(bg_x_length, bg_y_length, factor_amount)
     setheading(270)
     fillcolor("skyblue")
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(bg_y_length)
+            fd(bg_y_length * factor_amount)
         else:
-            fd(bg_x_length)
+            fd(bg_x_length * factor_amount)
         lt(90)
     end_fill()
 
 
-def draw_doorway():
+def draw_doorway(bg_x_length, bg_y_length, factor_amount):
     """draw the doorway shape"""
     count = 0
-    go_bottom_center()
+    go_bottom_center(bg_y_length, factor_amount)
     fillcolor("black")
     seth(0)
     up()
-    fd(door_x_length / 2)
+    fd((door_x_length * factor_amount) / 2)
     down()
     seth(90)
     begin_fill()
 
     while count < 4:
         if count % 2 == 0:
-            fd(door_y_length)
+            fd(door_y_length * factor_amount)
         else:
-            fd(door_x_length)
+            fd(door_x_length * factor_amount)
         count += 1
         lt(90)
     end_fill()
