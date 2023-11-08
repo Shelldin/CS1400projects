@@ -1,31 +1,5 @@
 from turtle import *
 
-# size factor
-factor_amount = 1
-
-# background dimension variables
-bg_x_length = 1400 * factor_amount
-bg_y_length = 850 * factor_amount
-
-# door dimension variables
-door_x_length = 150 * factor_amount
-door_y_length = 250 * factor_amount
-
-# variables for the pillar functions
-pillar_long_x_length = 100 * factor_amount
-pillar_short_x_length = 50 * factor_amount
-pillar_y_length = 300 * factor_amount
-pillar_base_y_length = pillar_long_x_length / 2
-pillar_total_height = pillar_y_length + pillar_base_y_length * 2
-
-# base building variables
-main_building_x_length = door_x_length + (200 * factor_amount) + (pillar_long_x_length * 8)
-main_building_y_length = pillar_total_height
-
-# upper roof dimension variables
-upper_roof_x_length = door_x_length + (150 * factor_amount) + (pillar_long_x_length * 8)
-upper_roof_y_length = pillar_total_height / 3
-
 
 def go_top_left(bg_x_length, bg_y_length):
     """position cursor in top left of picture"""
@@ -63,7 +37,7 @@ def draw_background_box(bg_x_length, bg_y_length):
     end_fill()
 
 
-def draw_doorway(bg_y_length):
+def draw_doorway(bg_y_length, door_x_length, door_y_length):
     """draw the doorway shape"""
     count = 0
     go_bottom_center(bg_y_length)
@@ -122,7 +96,7 @@ def draw_pillar_top(pillar_short_x_length, pillar_long_x_length, pillar_base_y_l
     end_fill()
 
 
-def draw_all_pillars(door_x_length, bg_y_length, pillar_short_x_length, pillar_long_x_length,
+def draw_all_pillars(door_x_length, bg_y_length, pillar_short_x_length, pillar_long_x_length, pillar_y_length,
                      pillar_base_y_length, factor_amount):
     pillar_count = 8
     fillcolor("ivory1")
@@ -225,7 +199,7 @@ def draw_roof_rectangles(bg_y_length, main_building_x_length, main_building_y_le
     end_fill()
 
 
-def draw_upper_roof(bg_y_length, upper_roof_x_length, pillar_total_height, factor_amount):
+def draw_upper_roof(bg_y_length, upper_roof_x_length, upper_roof_y_length, pillar_total_height, factor_amount):
     go_bottom_center(bg_y_length)
     fillcolor("ivory3")
     up()
@@ -243,20 +217,20 @@ def draw_upper_roof(bg_y_length, upper_roof_x_length, pillar_total_height, facto
 
     fillcolor("ivory2")
     up()
-    goto((xcor() - 15, ycor() + upper_roof_y_length))
+    goto((xcor() - (15 * factor_amount), ycor() + upper_roof_y_length))
     down()
     seth(0)
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(upper_roof_x_length + 30)
+            fd(upper_roof_x_length + (30 * factor_amount))
         else:
-            fd(15)
+            fd(15 * factor_amount)
         lt(90)
     end_fill()
 
 
-def draw_roof_triangles():
+def draw_roof_triangles(main_building_x_length, factor_amount):
     fillcolor("ivory1")
     tri_start_pos = pos()
     tri_side_count = 0
@@ -265,15 +239,15 @@ def draw_roof_triangles():
     begin_fill()
     while tri_side_count < 3:
         if tri_side_count == 0:
-            goto(0, ycor() + 120)
+            goto(0, ycor() + (120 * factor_amount))
             tri_side_count += 1
         elif tri_side_count == 1:
             goto(tri_start_pos)
             seth(0)
-            fd(main_building_x_length + 30)
+            fd(main_building_x_length + (30 * factor_amount))
             tri_side_count += 1
         elif tri_side_count == 2:
-            goto(0, ycor() + 120)
+            goto(0, ycor() + (120 * factor_amount))
             tri_side_count += 1
         else:
             break
@@ -282,33 +256,33 @@ def draw_roof_triangles():
     fillcolor("ivory2")
     up()
     goto(tri_start_pos)
-    goto(xcor() + 70, ycor())
+    goto(xcor() + (70 * factor_amount), ycor())
     second_tri_start_pos = pos()
     tri_side_count = 0
     down()
     begin_fill()
     while tri_side_count < 3:
         if tri_side_count == 0:
-            goto(0, ycor() + 100)
+            goto(0, ycor() + (100 * factor_amount))
             tri_side_count += 1
         elif tri_side_count == 1:
             goto(second_tri_start_pos)
             seth(0)
-            fd(main_building_x_length - 120)
+            fd(main_building_x_length - (120 * factor_amount))
             tri_side_count += 1
         elif tri_side_count == 2:
-            goto(0, ycor() + 100)
+            goto(0, ycor() + (100 * factor_amount))
             tri_side_count += 1
         else:
             break
     end_fill()
 
 
-def draw_dome():
+def draw_dome(upper_roof_y_length, factor_amount):
     fillcolor("ivory2")
     up()
-    goto(0, ycor() + upper_roof_y_length + 30)
-    goto(xcor() - 220, ycor())
+    goto(0, ycor() + upper_roof_y_length + (30 * factor_amount))
+    goto(xcor() - (220 * factor_amount), ycor())
     down()
     seth(90)
     begin_fill()
@@ -318,25 +292,54 @@ def draw_dome():
     end_fill()
 
 
-def draw_roof():
-    draw_roof_rectangles()
+def draw_roof(bg_y_length, main_building_x_length, main_building_y_length, upper_roof_x_length, upper_roof_y_length,
+              pillar_total_height, factor_amount):
+    draw_roof_rectangles(bg_y_length, main_building_x_length, main_building_y_length, factor_amount)
     roof_left_edge = pos()
-    draw_upper_roof()
+    draw_upper_roof(bg_y_length, upper_roof_x_length, upper_roof_y_length, pillar_total_height, factor_amount)
     up()
     goto(roof_left_edge)
-    goto(xcor(), ycor() + 15)
-    draw_roof_triangles()
+    goto(xcor(), ycor() + (15 * factor_amount))
+    draw_roof_triangles(main_building_x_length, factor_amount)
     up()
     goto(roof_left_edge)
-    draw_dome()
+    draw_dome(upper_roof_y_length, factor_amount)
 
 
 def main():
-    draw_background_box()
-    draw_main_pantheon_walls()
-    draw_doorway()
-    draw_all_pillars()
-    draw_roof()
+    # size factor
+    factor_amount = .5
+
+    # background dimension variables
+    bg_x_length = 1400 * factor_amount
+    bg_y_length = 850 * factor_amount
+
+    # door dimension variables
+    door_x_length = 150 * factor_amount
+    door_y_length = 250 * factor_amount
+
+    # variables for the pillar functions
+    pillar_long_x_length = 100 * factor_amount
+    pillar_short_x_length = 50 * factor_amount
+    pillar_y_length = 300 * factor_amount
+    pillar_base_y_length = pillar_long_x_length / 2
+    pillar_total_height = pillar_y_length + pillar_base_y_length * 2
+
+    # base building variables
+    main_building_x_length = door_x_length + (200 * factor_amount) + (pillar_long_x_length * 8)
+    main_building_y_length = pillar_total_height
+
+    # upper roof dimension variables
+    upper_roof_x_length = door_x_length + (150 * factor_amount) + (pillar_long_x_length * 8)
+    upper_roof_y_length = pillar_total_height / 3
+
+    draw_background_box(bg_x_length, bg_y_length)
+    draw_main_pantheon_walls(bg_y_length, main_building_x_length, main_building_y_length)
+    draw_doorway(bg_y_length, door_x_length, door_y_length)
+    draw_all_pillars(door_x_length, bg_y_length, pillar_short_x_length, pillar_long_x_length, pillar_y_length,
+                     pillar_base_y_length, factor_amount)
+    draw_roof(bg_y_length, main_building_x_length, main_building_y_length, upper_roof_x_length, upper_roof_y_length,
+              pillar_total_height, factor_amount)
 
 
 main()
