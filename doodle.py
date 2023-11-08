@@ -85,31 +85,31 @@ def draw_doorway(bg_x_length, bg_y_length, factor_amount):
     end_fill()
 
 
-def draw_pillar_base():
+def draw_pillar_base(pillar_long_x_length, pillar_base_y_length, factor_amount):
     """draw the base of a pillar"""
     begin_fill()
     fd(pillar_long_x_length)
-    goto(xcor() - (pillar_long_x_length * .25), ycor() + pillar_base_y_length)
-    goto(xcor() - pillar_short_x_length, ycor())
-    goto(xcor() - (pillar_long_x_length * .25), ycor() - pillar_base_y_length)
+    goto(xcor() - ((pillar_long_x_length * .25) * factor_amount), ycor() + (pillar_base_y_length * factor_amount))
+    goto(xcor() - (pillar_short_x_length * factor_amount), ycor())
+    goto(xcor() - ((pillar_long_x_length * .25) * factor_amount), ycor() - (pillar_base_y_length * factor_amount))
     end_fill()
     up()
-    goto(xcor() + (pillar_long_x_length * .25), ycor() + pillar_base_y_length)
+    goto(xcor() + ((pillar_long_x_length * .25) * factor_amount), ycor() + (pillar_base_y_length * factor_amount))
     down()
 
 
-def draw_pillar_column():
+def draw_pillar_column(pillar_y_length, pillar_short_x_length, factor_amount):
     """Draw the main section of the pillar"""
     seth(90)
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(pillar_y_length)
+            fd(pillar_y_length * factor_amount)
         else:
-            fd(pillar_short_x_length)
+            fd(pillar_short_x_length * factor_amount)
         rt(90)
     end_fill()
-    fd(pillar_y_length)
+    fd(pillar_y_length * factor_amount)
 
 
 def draw_pillar_top():
