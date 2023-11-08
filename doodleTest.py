@@ -4,17 +4,17 @@ from turtle import *
 factor_amount = 1
 
 # background dimension variables
-bg_x_length = 1400
-bg_y_length = 850
+bg_x_length = 1400 * factor_amount
+bg_y_length = 850 * factor_amount
 
 # door dimension variables
-door_x_length = 150
-door_y_length = 250
+door_x_length = 150 * factor_amount
+door_y_length = 250 * factor_amount
 
 # variables for the pillar functions
-pillar_long_x_length = 100
-pillar_short_x_length = 50
-pillar_y_length = 300
+pillar_long_x_length = 100 * factor_amount
+pillar_short_x_length = 50 * factor_amount
+pillar_y_length = 300 * factor_amount
 pillar_base_y_length = pillar_long_x_length / 2
 pillar_total_height = pillar_y_length + pillar_base_y_length * 2
 
@@ -23,61 +23,61 @@ main_building_x_length = door_x_length + (200 * factor_amount) + (pillar_long_x_
 main_building_y_length = pillar_total_height
 
 # upper roof dimension variables
-upper_roof_x_length = door_x_length + 150 + (pillar_long_x_length * 8)
+upper_roof_x_length = door_x_length + (150 * factor_amount) + (pillar_long_x_length * 8)
 upper_roof_y_length = pillar_total_height / 3
 
 
-def go_top_left(bg_x_length, bg_y_length, factor_amount):
+def go_top_left(bg_x_length, bg_y_length):
     """position cursor in top left of picture"""
     up()
-    goto((bg_x_length * factor_amount) / -2, (bg_y_length * factor_amount) / 2)
+    goto(bg_x_length / -2, bg_y_length / 2)
     down()
 
 
-def go_bottom_left(bg_x_length, bg_y_length, factor_amount):
+def go_bottom_left(bg_x_length, bg_y_length):
     """position cursor in bottom left of picture"""
     up()
-    goto((bg_x_length * factor_amount) / -2, (bg_y_length * factor_amount) / -2)
+    goto(bg_x_length / -2, bg_y_length / -2)
     down()
 
 
-def go_bottom_center(bg_y_length, factor_amount):
+def go_bottom_center(bg_y_length):
     """position cursor in bottom middle of picture"""
     up()
-    goto(0, (bg_y_length * factor_amount) / -2)
+    goto(0, bg_y_length / -2)
     down()
 
 
-def draw_background_box(bg_x_length, bg_y_length, factor_amount):
+def draw_background_box(bg_x_length, bg_y_length):
     """draw a background/sky box"""
-    go_top_left(bg_x_length, bg_y_length, factor_amount)
+    go_top_left(bg_x_length, bg_y_length)
     setheading(270)
     fillcolor("skyblue")
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(bg_y_length * factor_amount)
+            fd(bg_y_length)
         else:
-            fd(bg_x_length * factor_amount)
+            fd(bg_x_length)
         lt(90)
     end_fill()
 
 
-def draw_doorway(bg_x_length, bg_y_length, factor_amount):
+def draw_doorway(bg_y_length, factor_amount):
     """draw the doorway shape"""
     count = 0
-    go_bottom_center(bg_y_length, factor_amount)
+    go_bottom_center(bg_y_length)
     fillcolor("black")
     seth(0)
     up()
-    fd((door_x_length * factor_amount) / 2)
+    fd(door_x_length / 2)
     down()
     seth(90)
     begin_fill()
 
     while count < 4:
         if count % 2 == 0:
-            fd(door_y_length * factor_amount)
+            fd(door_y_length)
         else:
             fd(door_x_length * factor_amount)
         count += 1
