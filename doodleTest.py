@@ -63,7 +63,7 @@ def draw_background_box(bg_x_length, bg_y_length):
     end_fill()
 
 
-def draw_doorway(bg_y_length, factor_amount):
+def draw_doorway(bg_y_length):
     """draw the doorway shape"""
     count = 0
     go_bottom_center(bg_y_length)
@@ -79,46 +79,46 @@ def draw_doorway(bg_y_length, factor_amount):
         if count % 2 == 0:
             fd(door_y_length)
         else:
-            fd(door_x_length * factor_amount)
+            fd(door_x_length)
         count += 1
         lt(90)
     end_fill()
 
 
-def draw_pillar_base(pillar_long_x_length, pillar_short_x_length, pillar_base_y_length, factor_amount):
+def draw_pillar_base(pillar_long_x_length, pillar_short_x_length, pillar_base_y_length):
     """draw the base of a pillar"""
     begin_fill()
-    fd(pillar_long_x_length * factor_amount)
-    goto(xcor() - ((pillar_long_x_length * factor_amount) * .25), ycor() + (pillar_base_y_length * factor_amount))
-    goto(xcor() - (pillar_short_x_length * factor_amount), ycor())
-    goto(xcor() - ((pillar_long_x_length * factor_amount) * .25), ycor() - (pillar_base_y_length * factor_amount))
+    fd(pillar_long_x_length)
+    goto(xcor() - (pillar_long_x_length * .25), ycor() + pillar_base_y_length)
+    goto(xcor() - pillar_short_x_length, ycor())
+    goto(xcor() - (pillar_long_x_length * .25), ycor() - pillar_base_y_length)
     end_fill()
     up()
-    goto(xcor() + ((pillar_long_x_length * factor_amount) * .25), ycor() + (pillar_base_y_length * factor_amount))
+    goto(xcor() + (pillar_long_x_length * .25), ycor() + pillar_base_y_length)
     down()
 
 
-def draw_pillar_column(pillar_y_length, pillar_short_x_length, factor_amount):
+def draw_pillar_column(pillar_y_length, pillar_short_x_length):
     """Draw the main section of the pillar"""
     seth(90)
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(pillar_y_length * factor_amount)
+            fd(pillar_y_length)
         else:
-            fd(pillar_short_x_length * factor_amount)
+            fd(pillar_short_x_length)
         rt(90)
     end_fill()
-    fd(pillar_y_length * factor_amount)
+    fd(pillar_y_length)
 
 
-def draw_pillar_top(pillar_short_x_length, pillar_long_x_length, pillar_base_y_length, factor_amount):
+def draw_pillar_top(pillar_short_x_length, pillar_long_x_length, pillar_base_y_length):
     seth(0)
     begin_fill()
-    fd(pillar_short_x_length * factor_amount)
-    goto(xcor() + ((pillar_long_x_length * factor_amount) * .25), ycor() + (pillar_base_y_length * factor_amount))
-    goto(xcor() - (pillar_long_x_length * factor_amount), ycor())
-    goto(xcor() + ((pillar_long_x_length * factor_amount) * .25), ycor() - (pillar_base_y_length * factor_amount))
+    fd(pillar_short_x_length)
+    goto(xcor() + (pillar_long_x_length * .25), ycor() + pillar_base_y_length)
+    goto(xcor() - pillar_long_x_length, ycor())
+    goto(xcor() + (pillar_long_x_length * .25), ycor() - pillar_base_y_length)
     end_fill()
 
 
@@ -126,45 +126,45 @@ def draw_all_pillars(door_x_length, bg_y_length, pillar_short_x_length, pillar_l
                      pillar_base_y_length, factor_amount):
     pillar_count = 8
     fillcolor("ivory1")
-    go_bottom_center(bg_y_length, factor_amount)
+    go_bottom_center(bg_y_length)
     seth(0)
     up()
-    fd((door_x_length * factor_amount) / 2)
+    fd(door_x_length / 2)
 
     # draw the right side pillars
     while pillar_count > 4:
         seth(0)
         fd(25 * factor_amount)
         down()
-        draw_pillar_base(pillar_long_x_length, pillar_short_x_length, pillar_base_y_length, factor_amount)
-        draw_pillar_column(pillar_y_length, pillar_short_x_length, factor_amount)
-        draw_pillar_top(pillar_short_x_length, pillar_long_x_length, pillar_base_y_length, factor_amount)
+        draw_pillar_base(pillar_long_x_length, pillar_short_x_length, pillar_base_y_length)
+        draw_pillar_column(pillar_y_length, pillar_short_x_length)
+        draw_pillar_top(pillar_short_x_length, pillar_long_x_length, pillar_base_y_length)
         up()
-        goto(xcor() + (pillar_short_x_length * factor_amount) + ((pillar_long_x_length * factor_amount) * .25),
-             (bg_y_length * factor_amount) / -2)
+        goto(xcor() + pillar_short_x_length + (pillar_long_x_length * .25),
+             bg_y_length / -2)
         pillar_count -= 1
 
-    go_bottom_center()
+    go_bottom_center(bg_y_length)
     seth(180)
     up()
-    fd((door_x_length / 2) + 125 + (pillar_long_x_length * 4))
+    fd((door_x_length / 2) + (125 * factor_amount) + (pillar_long_x_length * 4))
 
     # draw left side pillars
     while 0 < pillar_count < 5:
         seth(0)
-        fd(25)
+        fd(25 * factor_amount)
         down()
-        draw_pillar_base()
-        draw_pillar_column()
-        draw_pillar_top()
+        draw_pillar_base(pillar_long_x_length, pillar_short_x_length, pillar_base_y_length)
+        draw_pillar_column(pillar_y_length, pillar_short_x_length)
+        draw_pillar_top(pillar_short_x_length, pillar_long_x_length, pillar_base_y_length)
         up()
         goto(xcor() + pillar_short_x_length + (pillar_long_x_length * .25), bg_y_length / -2)
         pillar_count -= 1
 
 
-def draw_main_pantheon_walls():
+def draw_main_pantheon_walls(bg_y_length, main_building_x_length, main_building_y_length):
     """draw the main building walls of the pantheon"""
-    go_bottom_center()
+    go_bottom_center(bg_y_length)
     fillcolor("ivory4")
     up()
     goto(main_building_x_length / -2, ycor())
@@ -180,9 +180,9 @@ def draw_main_pantheon_walls():
     end_fill()
 
 
-def draw_roof_rectangles():
+def draw_roof_rectangles(bg_y_length, main_building_x_length, main_building_y_length, factor_amount):
     fillcolor("ivory1")
-    go_bottom_center()
+    go_bottom_center(bg_y_length)
     up()
     goto((main_building_x_length / -2) - 15, ycor() + main_building_y_length)
     down()
@@ -190,15 +190,15 @@ def draw_roof_rectangles():
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(main_building_x_length + 30)
+            fd(main_building_x_length + (30 * factor_amount))
         else:
-            fd(15)
+            fd(15 * factor_amount)
         lt(90)
     end_fill()
 
     fillcolor("ivory2")
     up()
-    goto(xcor() + 15, ycor() + 15)
+    goto(xcor() + (15 * factor_amount), ycor() + (15 * factor_amount))
     down()
 
     begin_fill()
@@ -206,30 +206,30 @@ def draw_roof_rectangles():
         if i % 2 == 0:
             fd(main_building_x_length)
         else:
-            fd(30)
+            fd(30 * factor_amount)
         lt(90)
     end_fill()
 
     fillcolor("ivory1")
     up()
-    goto(xcor() - 15, ycor() + 30)
+    goto(xcor() - (15 * factor_amount), ycor() + (30 * factor_amount))
     down()
     seth(0)
     begin_fill()
     for i in range(4):
         if i % 2 == 0:
-            fd(main_building_x_length + 30)
+            fd(main_building_x_length + (30 * factor_amount))
         else:
-            fd(15)
+            fd(15 * factor_amount)
         lt(90)
     end_fill()
 
 
-def draw_upper_roof():
-    go_bottom_center()
+def draw_upper_roof(bg_y_length, upper_roof_x_length, pillar_total_height, factor_amount):
+    go_bottom_center(bg_y_length)
     fillcolor("ivory3")
     up()
-    goto(xcor() + (upper_roof_x_length / -2), ycor() + pillar_total_height + 60)
+    goto(xcor() + (upper_roof_x_length / -2), ycor() + pillar_total_height + (60 * factor_amount))
     down()
     seth(0)
     begin_fill()
