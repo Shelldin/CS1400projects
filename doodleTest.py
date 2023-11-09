@@ -309,7 +309,7 @@ def draw_roof(bg_y_length, main_building_x_length, main_building_y_length, upper
 
 def main():
     # size factor
-    factor_amount = 1
+    factor_amount = .4
 
     # background dimension variables
     bg_x_length = 560 * factor_amount
@@ -346,6 +346,6 @@ def main():
               pillar_total_height, dome_radius, factor_amount)
 
 
-main()
-
-mainloop()
+if __name__ == "__main__":
+    main()
+    done()
