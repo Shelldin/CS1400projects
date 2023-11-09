@@ -2,7 +2,12 @@ from turtle import *
 import argparse
 
 
-# FIX DOME. CURRENT CODE DOES NOT SCALE
+def get_scale_factor():
+    parser = argparse.ArgumentParser(description="Get number to scale the turtle drawing")
+
+    parser.add_argument('scale_factor', type=int or float,
+                        help="Enter whole or decimal number by which the picture will be scaled")
+
 
 def go_top_left(bg_x_length, bg_y_length):
     """position cursor in top left of picture"""
