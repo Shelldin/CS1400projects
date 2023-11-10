@@ -1,12 +1,28 @@
-from turtle import *
+import turtle
+from turtle import Turtle
 import argparse
+
+
+
+def check_value(value):
+    try:
+        float(value)
+    except ValueError as err:
+        print(f"{err} please enter a number")
 
 
 def get_scale_factor():
     parser = argparse.ArgumentParser(description="Get number to scale the turtle drawing")
 
-    parser.add_argument('scale_factor', type=int or float,
-                        help="Enter whole or decimal number by which the picture will be scaled")
+    parser.add_argument('scale_factor', type=float,
+                        help="Enter a number by which the picture will be scaled")
+
+    args = parser.parse_args()
+
+    check_value(args.scale_factor)
+
+    return args.scale_factor
+
 
 
 def go_top_left(bg_x_length, bg_y_length):
@@ -314,7 +330,7 @@ def draw_roof(bg_y_length, main_building_x_length, main_building_y_length, upper
 
 def main():
     # size factor
-    factor_amount = .4
+    factor_amount = get_scale_factor()
 
     # background dimension variables
     bg_x_length = 560 * factor_amount
@@ -353,4 +369,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    done()
+    turtle.done()
