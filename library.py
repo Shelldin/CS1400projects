@@ -24,8 +24,52 @@ def get_three_letter_code(file):
     return three_letter_code
 
 
-def convert_to_list_of_tuples(text_list):
+def convert_to_dictionary(text_list):
     # separate the delimited items and put them into a list of tuples
     delimiter = "|"
 
     tuples_list = []
+
+    for text in text_list:
+        line_text = text.split(delimiter)[0]
+        line_number = int(text.split(delimiter)[1])
+
+        tuples_list.append((line_number, line_text))
+
+    unsorted_dict = dict(tuples_list)
+
+    return unsorted_dict
+
+
+def sort_dictionary(unsorted_dict):
+    # take dictionary and sort it
+    sorted_dict = sorted(unsorted_dict)
+
+    return sorted_dict
+
+
+def get_longest_line(sorted_dict):
+    # find the longest line and its line number
+    longest_line = ""
+    longest_line_number = 0
+
+    for number, text in sorted_dict.items():
+        if len(text) >= len(longest_line):
+            longest_line = text
+            longest_line_number = number
+
+    longest_line_and_number = (longest_line_number, longest_line)
+
+    return longest_line_and_number
+
+
+def get_average_length(sorted_dict):
+    # get the length of each line and average them
+    total_length = 0
+    number_of_lines = 0
+
+    for number, text in sorted_dict.items():
+        total_length += len(text)
+        number_of_lines += 1
+
+    average_length = round(total_length/number_of_lines)
