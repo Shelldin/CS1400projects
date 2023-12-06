@@ -19,7 +19,7 @@ def file_text_to_list(file):
 
 def get_three_letter_code(file):
     # get three-letter code based on file name
-    three_letter_code = os.path.split(file)
+    three_letter_code = os.path.splitext(file)[0]
 
     return three_letter_code
 
@@ -96,7 +96,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Open scrambled book file")
 
-    parser.add_argument('--file', type=str, required=True,
+    parser.add_argument('file', type=str,
                         help="Please provide a file name on the command line")
 
     args = parser.parse_args()
